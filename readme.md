@@ -9,7 +9,7 @@
 OS	Windows 11 (WSL2)
 Shell/Terminal 	PowerShell / Ubuntu Bash
 Docker 버전	[Docker version29.9.2, build a82e528]
-Git 버전	[git version 2.56.0.windows.4]
+Git 버전 회사 PC	[git version 2.56.0.windows.4] / 집 PC [git version 2.47.1.windows.1]
 
 3. 수행 항목 체크리스트
 터미널 기본 명령어 실습
@@ -443,18 +443,63 @@ hello
 
 ## 내부에서 ls, echo "hello" 수행
 attach vs exec 차이점: ctrl + p
+
+`docker run -it -d --name test ubuntu:22.04`
+로 exit하여도 컨테이너 멈추지 않도록 컨테이너 생성
+
+`exec`로 해당컨테이너 접속 후 hello 파일 생성 exit 후 컨테이너 up 상태인 것을 확인
+```
+PS C:\Users\USER\OneDrive\Desktop\workspace\Codessey-Repository> docker exec -it test /bin/bash
+root@bccdf62cbad6:/# touch hello
+root@bccdf62cbad6:/# ls
+bin  boot  dev  etc  hello  home  lib  lib32  lib64  libx32  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@bccdf62cbad6:/# exit
+exit
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug test
+    Learn more at https://docs.docker.com/go/debug-cli/
+PS C:\Users\USER\OneDrive\Desktop\workspace\Codessey-Repository> docker ps
+CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS         PORTS     NAMES
+bccdf62cbad6   ubuntu:22.04   "/bin/bash"   3 minutes ago   Up 3 minutes             test
+```
+
+`attach`로 컨테이너 접속 후 exit로 나갈시 컨테이너 사라진 것 확인
+```
+PS C:\Users\USER\OneDrive\Desktop\workspace\Codessey-Repository> docker attach test
+root@bccdf62cbad6:/# ls
+bin  boot  dev  etc  hello  home  lib  lib32  lib64  libx32  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@bccdf62cbad6:/# exit
+exit
+PS C:\Users\USER\OneDrive\Desktop\workspace\Codessey-Repository> docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+```
+
 attach: 실행 중인 컨테이너의 표준 입력/출력에 직접 연결 (종료 시 컨테이너도 멈출 수 있음).
 exec: 실행 중인 컨테이너에 새로운 프로세스를 실행 (작업 후 나와도 컨테이너는 계속 실행됨).
+
 6. 커스텀 Dockerfile 제작 및 웹 서버 배포
 6.1. 커스텀 설정 내용
-베이스 이미지: nginx:latest
-커스텀 목적: 기본 인덱스 페이지를 프로젝트 안내 페이지로 교체하고 포트 80을 개방함.
+베이스 이미지: ubuntu:22.04
+커스텀 목적: 실습 목적에 ubuntu가 적합하다 판단하여 ubuntu 기반에서 nginx 인스톨
+
 6.2. Dockerfile 코드
 dockerfile
-📋 복사
-FROM nginx:latest
-COPY ./index.html /usr/share/nginx/html/index.html
+```
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y nginx curl
+
+ENV CAMPUS_NAME="Gyeongnam"
+
+COPY index.html /var/www/html/index.html
+
 EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+
 6.3. 빌드 및 실행 결과
 bash
 📋 복사
