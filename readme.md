@@ -12,14 +12,14 @@ Docker 버전	[Docker version29.9.2, build a82e528]
 Git 버전 회사 PC	[git version 2.56.0.windows.4] / 집 PC [git version 2.47.1.windows.1]
 
 3. 수행 항목 체크리스트
-터미널 기본 명령어 실습
-파일 및 디렉토리 권한 변경 실습
-Docker 설치 및 기본 점검
-Docker 이미지 및 컨테이너 운영 명령 수행
-Dockerfile 기반 커스텀 이미지 제작 및 배포
-포트 매핑 및 브라우저 접속 확인
-Docker 볼륨을 이용한 데이터 영속성 검증
-GitHub 저장소 연동 및 푸시
+터미널 기본 명령어 실습_OK
+파일 및 디렉토리 권한 변경 실습_OK
+Docker 설치 및 기본 점검_OK
+Docker 이미지 및 컨테이너 운영 명령 수행_OK
+Dockerfile 기반 커스텀 이미지 제작 및 배포_OK
+포트 매핑 및 브라우저 접속 확인_OK
+Docker 볼륨을 이용한 데이터 영속성 검증_OK
+GitHub 저장소 연동 및 푸시_OK
 
 4. 터미널 조작 및 권한 실습 로그
 4.1. 기본 명령어 수행
@@ -34,6 +34,14 @@ Path
 ----                             
 C:\Users\knuser\Desktop\Workspace
 ```
+
+## 이동
+`cd`
+절대경로 : 집 주소와 같은 특정 위치를 뜻하는 절대적인 경로
+cd /users/fbwldn10042731/Desktop/workspace -> users안의 fbwldn10042731안의 Desktop안의 workspace
+상대경로 : 내 앞이나 뒤, 위처럼 내 위치에 따라 달라지는 상대적인 경로
+.이 나의 현재 위치
+cd .. -> 내 상위 폴더
 
 ## 목록 확인 
 `ls`
@@ -52,7 +60,6 @@ Mode                 LastWriteTime         Length Name
 
 ## 숨김파일 포함한 목록 확인
 `ls -al`
-9.트러블슈팅 Case2로 인해 Ryu_linux 컨테이너 생성 후 명령어 실습 재개
 
 ```
 root@6efc1a9039b7:/home/Workspace# ls -al
@@ -110,6 +117,9 @@ Hello.txt
 변경 전/후 비교:
 ## 파일 권한 변경 (644 -> 755)
 `chmod`
+기존의 내가 읽고 쓸 수 있고 그룹이나 타인은 읽기만 할수 있던 파일을
+내가 읽고 쓰고 실행할 수 있으며 그룹이나 타인은 읽고 실행할 수 있는 파일로 변경
+r=4 w=2 x=1로 각각 읽기, 쓰기, 실행
 ```
 root@6efc1a9039b7:/home/Workspace/testfolder# ls -l Hello.txt
 -rw-r--r-- 1 root root 7 Nov  5 07:02 Hello.txt
@@ -120,6 +130,9 @@ root@6efc1a9039b7:/home/Workspace/testfolder# ls -l Hello.txt
 
 ## 디렉토리 권한 변경 (755 -> 700)
 `chmod`
+기존에 내가 읽고 쓰고 접속할 수 있으며 그룹, 타인은 읽고 접속할 수 있던 디렉토리를
+나만이 읽고 쓰고 접속할 수 있는 디렉토리로 변경
+d=디렉토리 r=4 w=2 x=1로 각각 읽기, 쓰기, 접속
 ```
 root@6efc1a9039b7:/home/Workspace/testfolder# mkdir permission test 
 root@6efc1a9039b7:/home/Workspace/testfolder# ls
@@ -134,13 +147,31 @@ drwx------ 1 root root 512 Nov  5 07:09 permission
 
 5. Docker 운영 및 컨테이너 실습
 5.1. Docker 기본 점검
+도커 이미지 : 컨테이너를 만드는 틀, 읽기전용
+도커 컨테이너 : 이미지를 바탕으로 만들어진 컨테이너, 접속하고 명령어를 입력하는 실제 프로세스
+
+5.2. 도커 흐름도
+빌드 : Dockerfile -> dockerbuild -> 이미지
+개발자가 코드와 설정파일들을 어디서든 똑같이 실행될 수 있는 이미지로 만듬
+
+실행 : 이미지 -> docker run -> 컨테이너
+이미지를 바탕으로 컨테이너를 실행
+
+변경 : 컨테이너 안에서 작업
+
+저장 : 위에서 변경된 이미지를 새 이미지로 커밋 혹은 빌드
+
+5.3. 도커 관련 명령어 실습
+
 `docker version`
+현재 도커 버전 확인
 ```
 PS C:\Users\knuser\Desktop\Workspace> docker --version
 Docker version 29.9.2, build a82e528
 ```
 
 `docker info`
+클라이언트. 도커 서버_엔진, 현재 상황, 내 컴퓨터 사양, 도커 저장소 등 도커 관련 정보 확인
 ```
 PS C:\Users\knuser\Desktop\Workspace> docker info
 Client:
@@ -382,6 +413,7 @@ CONTAINER ID   NAME        CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLO
 ## (출력 결과 중 핵심 내용 일부 복사/붙여넣기)
 5.2. 컨테이너 실행 실습
 hello-world 실행: docker run hello-world (성공 로그 확인)
+출력환경 : Windows PowerShell
 ```
 PS C:\Users\knuser\Desktop\Workspace> docker run hello-world
 
@@ -488,21 +520,30 @@ exec: 실행 중인 컨테이너에 새로운 프로세스를 실행 (작업 후
 6.2. 웹서버 소스코드 및 Dockerfile 코드
 
 웹서버 소스코드
-index.html
+### index.html
 ```
 <h1>Gyeongnam Campus Docker Study</h1>
 <p>Admin: MY_EMAIL</p>
 ```
 
-dockerfile
+### dockerfile
+ubuntu:22.04를 기반
+nginx이미지와 curl이미지를 사용
+환경변수는 ADMIN_EMAIL
+index.html을 nginx의 /var/www/html/index.html로 복사
+intex.html의 MY_EMAIL이 Dockerfile의 ADMIN_EMAIL로 치환되도록
+포트번호 80
+
 ```
 FROM ubuntu:22.04
 
 RUN apt-get update && apt-get install -y nginx curl
 
-ENV CAMPUS_NAME="Gyeongnam"
+ENV ADMIN_EMAIL="envtest@email.com"
 
 COPY index.html /var/www/html/index.html
+
+RUN sed -i "s/MY_EMAIL/$ADMIN_EMAIL/g" /var/www/html/index.html
 
 EXPOSE 80
 
@@ -511,6 +552,11 @@ CMD ["nginx", "-g", "daemon off;"]
 
 
 6.3. 빌드 및 실행 결과
+빌드 및 실행 과정에서 ENV 치환 관련 에러 발생하였으나
+index.html파일이 UTF-16 LE로 인코딩 되어 sed 명령어가 index.html의 MY_EMAIL을
+제대로 인식하지 못한 이슈로 확인되어 index.html 파일을 UTF-8로 다시 인코딩 후
+빌드 및 실행하여 해결_트러블슈팅 case2
+
 ## 빌드 명령
 docker build -t my-web-server .
 ```
@@ -540,7 +586,8 @@ PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-t
  => => unpacking to docker.io/library/my-web-server:latest                     
  ```
 
-## 실행 명령 (포트 8080 매핑)
+## 실행 명령
+내 컴퓨터의 8080 포트를 컨테이너 네임스페이스의 80 포트와 연결
 docker run -d -p 8080:80 --name my-web-container my-web-server
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker run -d -p 8080:80 --name my-web-container my-web-server
@@ -570,16 +617,44 @@ RawContentLength  : 71
 ```
 <img width="645" height="229" alt="스크린샷 2026-11-07 134257" src="https://github.com/user-attachments/assets/0fef1af5-98dc-498f-93ee-a24fb030dbb6" />
 
-7. Docker 볼륨 영속성 검증
+현재 문제 없지만 내 컴퓨터의 8080포트를 이미 사용중이었을 경우 포트 충돌 발생
+해당 에러 발생시 lsof/ps/netstat 등을 통해 해당 프로그램 확인 및 해제 가능
 
+`lsof` - 가장 직관적인 확인법
+sudo lsof -i :8080
+8080포트를 쓰는 프로그램_PID 확인
+
+`netstat` - 전문적인 확인법
+sudo netstat -nlp | grep :8080
+
+`ps` - PID를 통해 해당 프로그램의 이름 확인
+ps -ef | grep <찾은 PID>
+
+`kill` - 프로그램 종료
+
+7. Docker 볼륨 영속성 검증
+## 바인트 마운트 vs 도커 볼륨
+바인드 마운트 : 호스트 시스템의 절대경로를 컨테이너 내부경로와 연결
+장점 : 직관적, 실시간 반영
+단점 : 호스트 의존성_다른 컴퓨터에서 안돌아갈 수 있음, 보안위험_컨테이너가 호스트 특정파일을 수정하거나 삭제 가능
+주 용도 : 개발용, 소스 코드 실시간 수정
+
+
+도커볼륨 : 도커과 관리하는 호스트 특정영역에 데이터 저장
+장점 : 도커명령어로 관리 용이, 독립성, 성능 및 안전
+단점 : 접근성_데이터가 도커 전용 영역에 숨겨져 있어, 일반 사용자가 직접 파일을 확인하기 번거로움
+주 용도 : 운영용, 데이터베이스, 영구저장
 
 ## 볼륨 생성 
+볼륨명 : my-vol
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker volume create my-vol      
 my-vol
 ```
 
 ## 연결 및 데이터 생성:
+alpine이 테스트에 가벼운 이미지로 테스트에 적합하다 하여 alpine 이미지로 컨테이너 생성 및 테스트 진행
+volume-test-container를 my-vol과 연결되어 1000초 동안 켜지게 생성
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker run -d --name volume-test-container -v my-vol:/data alpine sleep 1000
 Unable to find image 'alpine:latest' locally
@@ -593,6 +668,7 @@ b12d253e7bb4b4e71e45463ecf9d86794c49d2ce7e7d2aeada08fb7dd43a9f6f
 ```
 
 ## 컨테이너 내부의 /data 경로에 파일 생성
+컨테이너 내부에 Hello, Docker Volume!이라는 내용의 hello.txt 생성
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker exec volume-test-container sh -c "echo 'Hello, Docker Volume!' > /data/hello.txt"
 ```
@@ -604,12 +680,15 @@ Hello, Docker Volume!
 ```
 
 ## 컨테이너 삭제
+volume-test-container 삭제
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker rm -f volume-test-container
 volume-test-container
 ```
 
 ## 새 컨테이너 생성, 볼륨 재연결 및 데이터 확인
+my-vol과 연결된 컨테이너 생성 및 /data/hello.txt 내용을 외치고 삭제되는 컨테이너 생성하여
+삭제한 volume-test-container 안의 데이터가 유지된 것을 확인
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker run --rm -v my-vol:/data alpine cat /data/hello.txt
 Hello, Docker Volume!
@@ -651,14 +730,20 @@ branch.main.merge=refs/heads/main
 연동 증거: [VSCode와 GitHub 연동 화면 또는 GitHub 저장소 메인 스크린샷]
 
 9. 트러블슈팅 (Troubleshooting)
+
 Case 1: Docker Desktop 설치 시 가상화 오류
 문제: "Virtual Machine Platform" 기능 미활성화 에러 발생.
 원인: 윈도우 WSL2 기능이 꺼져 있어 Docker 엔진이 구동되지 않음.
 해결: 관리자 권한 파워쉘에서 wsl --install 실행 후 재부팅하여 해결.
+
 Case 2: 도커파일 활용한 웹파일 환경변수 미작동 오류
 문제: ENV 및 sed 활용하여 관리자 이메일을 환경변수로 적용하려했으나 실 구동시 환경변수 작동하지 않음
 원인: 도커파일은 UTF-8, 인덱스파일은 UTF-16 LE로 되어있어 인덱스파일의 MY_EMAIL을 제대로 인식하지 못함
 해결: index.html 파일을 UTF-8로 다시 인코딩하여 저장하고 다시 빌드 및 실행
 
-10. 보안 및 개인정보 보호
-본 문서에 포함된 모든 로그와 스크린샷에서 개인 이메일, 토큰, 비밀번호 등은 마스킹 처리되었음을 확인합니다.
+10. 디렉토리 구조
+docker-custom-test : 커스텀 Dockerfile 제작 및 웹 서버 배포
+testfolder : 터미널 조작 및 권한실습_디렉토리, 파일 생성 및 권한변경 등 실습에 사용 
+
+11. 보안 및 개인정보 보호
+본 문서에 포함된 모든 로그와 스크린샷에서 개인 이메일, 토큰, 비밀번호 등은 ***로 마스킹 처리되었음을 확인합니다.
