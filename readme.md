@@ -546,7 +546,7 @@ docker run -d -p 8080:80 --name my-web-container my-web-server
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker run -d -p 8080:80 --name my-web-container my-web-server
 1ff570bf89f2a35e149c463e3d3e29b1ad671c8eb2c9f4e0e6df79ae4b7239dc
 ```
-접속 확인: localhost:8080 curl 결과 첨부
+접속 확인: localhost:8080 curl 결과 및 접속 스크린샷 첨부
 ```
 StatusCode        : 200
 StatusDescription : OK
@@ -618,10 +618,7 @@ Hello, Docker Volume!
 ## 결과: "Hello, Docker Volume!" 출력됨 (데이터 유지 확인)
 
 8. Git 및 GitHub 연동
-Git 설정 확인:
-bash
-📋 복사
-git config --list
+Git 설정 확인: `git config --list`
 ## (user.name, user.email 확인 - 개인정보는 ***로 마스킹)
 연동 증거: [VSCode와 GitHub 연동 화면 또는 GitHub 저장소 메인 스크린샷]
 
