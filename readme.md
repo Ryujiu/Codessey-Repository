@@ -619,6 +619,34 @@ Hello, Docker Volume!
 
 8. Git 및 GitHub 연동
 Git 설정 확인: `git config --list`
+```
+PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository> git config --list
+diff.astextplain.textconv=astextplain
+filter.lfs.clean=git-lfs clean -- %f
+filter.lfs.smudge=git-lfs smudge -- %f
+filter.lfs.process=git-lfs filter-process
+filter.lfs.required=true
+http.sslbackend=schannel
+core.autocrlf=true
+core.fscache=true
+core.symlinks=false
+pull.rebase=false
+credential.helper=manager
+credential.https://dev.azure.com.usehttppath=true
+init.defaultbranch=master
+user.name=***
+user.email=***@naver.com
+init.defaultbranch=main
+core.repositoryformatversion=0
+core.filemode=false
+core.bare=false
+core.logallrefupdates=true
+core.symlinks=false
+core.ignorecase=true
+remote.origin.url=https://github.com/Ryujiu/Codessey-Repository
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+branch.main.remote=origin
+branch.main.merge=refs/heads/main
 ## (user.name, user.email 확인 - 개인정보는 ***로 마스킹)
 연동 증거: [VSCode와 GitHub 연동 화면 또는 GitHub 저장소 메인 스크린샷]
 
