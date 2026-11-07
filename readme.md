@@ -568,6 +568,7 @@ Links             : {}
 ParsedHtml        : System.__ComObject
 RawContentLength  : 71
 ```
+<img width="645" height="229" alt="스크린샷 2026-11-07 134257" src="https://github.com/user-attachments/assets/0fef1af5-98dc-498f-93ee-a24fb030dbb6" />
 
 7. Docker 볼륨 영속성 검증
 
