@@ -482,8 +482,18 @@ exec: 실행 중인 컨테이너에 새로운 프로세스를 실행 (작업 후
 6.1. 커스텀 설정 내용
 베이스 이미지: ubuntu:22.04
 커스텀 목적: 실습 목적에 ubuntu가 적합하다 판단하여 ubuntu 기반에서 nginx 인스톨
+환경변수 설정: 관리자 메일 환경변수로 설정
+커스텀 목적: 환경변수 실습
 
-6.2. Dockerfile 코드
+6.2. 웹서버 소스코드 및 Dockerfile 코드
+
+웹서버 소스코드
+index.html
+```
+<h1>Gyeongnam Campus Docker Study</h1>
+<p>Admin: MY_EMAIL</p>
+```
+
 dockerfile
 ```
 FROM ubuntu:22.04
@@ -501,28 +511,111 @@ CMD ["nginx", "-g", "daemon off;"]
 
 
 6.3. 빌드 및 실행 결과
-bash
-📋 복사
 ## 빌드 명령
 docker build -t my-web-server .
+```
+PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker build -t my-web-server .
+[+] Building 26.9s (9/9) FINISHED                                                                                                                                            docker:desktop-linux
+ => [internal] load build definition from Dockerfile                                                                                                                                         0.0s
+ => => transferring dockerfile: 315B                                                                                                                                                         0.0s
+ => [internal] load metadata for docker.io/library/ubuntu:22.04                                                                                                                              2.5s
+ => [internal] load .dockerignore                                                                                                                                                            0.0s
+ => => transferring context: 2B                                                                                                                                                              0.0s
+ => [1/4] FROM docker.io/library/ubuntu:22.04@sha256:076e7bf82319619f28dd0aa9c02ab34b055ad37100395b4f49a2ffba04fb5e11                                                                        2.5s
+ => => resolve docker.io/library/ubuntu:22.04@sha256:076e7bf82319619f28dd0aa9c02ab34b055ad37100395b4f49a2ffba04fb5e11                                                                        0.0s
+ => => sha256:0626d3cc316c9fea3d4891e2ec19b8f371fe22ffb915622f6072a2ee2ca9017f 29.75MB / 29.75MB                                                                                             2.1s
+ => => extracting sha256:0626d3cc316c9fea3d4891e2ec19b8f371fe22ffb915622f6072a2ee2ca9017f                                                                                                    0.3s
+ => [internal] load build context                                                                                                                                                            0.1s
+ => => transferring context: 169B                                                                                                                                                            0.0s
+ => [2/4] RUN apt-get update && apt-get install -y nginx curl                                                                                                                               17.8s
+ => [3/4] COPY index.html /var/www/html/index.html                                                                                                                                           0.1s
+ => [4/4] RUN sed -i "s/MY_EMAIL/fbwldn1004@naver.com/g" /var/www/html/index.html                                                                                                            0.2s 
+ => exporting to image                                                                                                                                                                       3.7s 
+ => => exporting layers                                                                                                                                                                      2.7s 
+ => => exporting manifest sha256:1109a86f1d28018411764a1218e3b0c57e083200283f7a3e77be3aef4ec32cce                                                                                            0.0s 
+ => => exporting config sha256:82a46f8eec46a6704bedffbe9ca70137ecb0f786a1b86799d610773206ee1780                                                                                              0.0s 
+ => => exporting attestation manifest sha256:b0a1a719bd979a261de911a99f46b19360dd0471ecbcc0ad8b7037f25bdf288c                                                                                0.0s
+ => => exporting manifest list sha256:2a92c94b65fb1d727dcf2fb7e6be187307719410985c313d65d81ef4060dea15                                                                                       0.0s
+ => => naming to docker.io/library/my-web-server:latest                                                                                                                                      0.0s
+ => => unpacking to docker.io/library/my-web-server:latest                     
+ ```
 
 ## 실행 명령 (포트 8080 매핑)
 docker run -d -p 8080:80 --name my-web-container my-web-server
-접속 확인: [브라우저 localhost:8080 접속 스크린샷 첨부 또는 curl 결과]
+```
+PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker run -d -p 8080:80 --name my-web-container my-web-server
+1ff570bf89f2a35e149c463e3d3e29b1ad671c8eb2c9f4e0e6df79ae4b7239dc
+```
+접속 확인: localhost:8080 curl 결과 첨부
+```
+StatusCode        : 200
+StatusDescription : OK
+Content           : <h1>Gyeongnam Campus Docker Study</h1>
+                    <p>Admin: envtest@email.com</p>
+RawContent        : HTTP/1.1 200 OK
+                    Connection: keep-alive
+                    Accept-Ranges: bytes
+                    Content-Length: 71
+                    Content-Type: text/html
+                    Date: Sat, 07 Nov 2026 04:36:10 GMT
+                    ETag: "6aeeaa24-47"
+                    Last-Modified: Sat, 07 Nov 2026 04...
+Forms             : {}
+Headers           : {[Connection, keep-alive], [Accept-Ranges, bytes], [Content-Length, 71], [Content-Type, text/html]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : System.__ComObject
+RawContentLength  : 71
+```
+
 7. Docker 볼륨 영속성 검증
-볼륨 생성: docker volume create my-db-vol
-연결 및 데이터 생성:
-bash
-📋 복사
-docker run -it -v my-db-vol:/data --name test-v1 ubuntu
-echo "persistence test" > /data/test.txt
-exit
-컨테이너 삭제 후 재확인:
-bash
-📋 복사
-docker rm test-v1
-docker run -it -v my-db-vol:/data --name test-v2 ubuntu cat /data/test.txt
-## 결과: "persistence test" 출력됨 (데이터 유지 확인)
+
+
+## 볼륨 생성 
+```
+PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker volume create my-vol      
+my-vol
+```
+
+## 연결 및 데이터 생성:
+```
+PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker run -d --name volume-test-container -v my-vol:/data alpine sleep 1000
+Unable to find image 'alpine:latest' locally
+latest: Pulling from library/alpine
+881fc932939e: Pull complete 
+86ff264fe568: Download complete 
+c35a7d82b8fa: Download complete 
+Digest: sha256:3f4d6b32e26703c6082839234f43769d5046b3ac7c910033911d1e71d8cd630a
+Status: Downloaded newer image for alpine:latest
+b12d253e7bb4b4e71e45463ecf9d86794c49d2ce7e7d2aeada08fb7dd43a9f6f
+```
+
+## 컨테이너 내부의 /data 경로에 파일 생성
+```
+PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker exec volume-test-container sh -c "echo 'Hello, Docker Volume!' > /data/hello.txt"
+```
+
+## 생성된 데이터 확인
+```
+PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker exec volume-test-container cat /data/hello.txt
+Hello, Docker Volume!
+```
+
+## 컨테이너 삭제
+```
+PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker rm -f volume-test-container
+volume-test-container
+```
+
+## 새 컨테이너 생성, 볼륨 재연결 및 데이터 확인
+```
+PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker run --rm -v my-vol:/data alpine cat /data/hello.txt
+Hello, Docker Volume!
+```
+
+## 결과: "Hello, Docker Volume!" 출력됨 (데이터 유지 확인)
+
 8. Git 및 GitHub 연동
 Git 설정 확인:
 bash
@@ -536,14 +629,10 @@ Case 1: Docker Desktop 설치 시 가상화 오류
 문제: "Virtual Machine Platform" 기능 미활성화 에러 발생.
 원인: 윈도우 WSL2 기능이 꺼져 있어 Docker 엔진이 구동되지 않음.
 해결: 관리자 권한 파워쉘에서 wsl --install 실행 후 재부팅하여 해결.
-Case 2: 터미널 조작 실습 중 `ls -al` 오류
-문제: 숨김파일 포함한 목록 확인을 `ls -al` 입력하였으나 에러 발생
-원인: 현재 사용중인 환경이 윈도우 환경의 powershell인 관계로 리눅스 명령어인 `ls -al`을 인식하지 못함
-해결: [조치 사항]
-Case 3: ryu_linux 컨테이너 생성 및 실행 오류
-문제: ubuntu:22.04 이미지 사용하여 ryu_linux 컨테이너 생성하려 하였으나 에러 발생
-원인: `docker run -it -v --name ryu_linux ${pwd}:/home/Workspace ubuntu:22.04`  명령어 순서 오배치로 인해 ryu_linux를 이미지로 인식하여 이미지를 찾지 못해 에러 발생, `-v` 뒤에는  
-해결: 명령어 순서를 바꾸어 `docker run -it --name ryu_linux ${pwd}:/home/Workspace ubuntu:22.04`로 입력하여 해결
+Case 2: 도커파일 활용한 웹파일 환경변수 미작동 오류
+문제: ENV 및 sed 활용하여 관리자 이메일을 환경변수로 적용하려했으나 실 구동시 환경변수 작동하지 않음
+원인: 도커파일은 UTF-8, 인덱스파일은 UTF-16 LE로 되어있어 인덱스파일의 MY_EMAIL을 제대로 인식하지 못함
+해결: index.html 파일을 UTF-8로 다시 인코딩하여 저장하고 다시 빌드 및 실행
 
 10. 보안 및 개인정보 보호
 본 문서에 포함된 모든 로그와 스크린샷에서 개인 이메일, 토큰, 비밀번호 등은 마스킹 처리되었음을 확인합니다.
