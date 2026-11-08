@@ -771,7 +771,8 @@ services:
 docker-compose.yml 파일 저장 후
 `docker-compose up -d` 입력 시 해당 컨테이너 실행
 실행 후 웹브라우저에 http://localhost:7070 입력 후 nginx 페이지 확인
-[스크린샷]
+<img width="821" height="301" alt="image" src="https://github.com/user-attachments/assets/0daf62f2-d52e-473f-a0ad-672b950c4cd0" />
+
 
 # 12.2 Docker Compose 멀티 컨테이너
 docker-compose.yml 파일 수정
