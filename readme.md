@@ -510,15 +510,15 @@ PS C:\Users\USER\OneDrive\Desktop\workspace\Codessey-Repository> docker ps
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
 
-attach: 실행 중인 컨테이너의 표준 입력/출력에 직접 연결 (종료 시 컨테이너도 멈출 수 있음).
-exec: 실행 중인 컨테이너에 새로운 프로세스를 실행 (작업 후 나와도 컨테이너는 계속 실행됨).
+attach: 실행 중인 컨테이너의 표준 입력/출력에 직접 연결 (종료 시 컨테이너도 멈출 수 있음).  
+exec: 실행 중인 컨테이너에 새로운 프로세스를 실행 (작업 후 나와도 컨테이너는 계속 실행됨).  
 
 # 6. 커스텀 Dockerfile 제작 및 웹 서버 배포
 # 6.1. 커스텀 설정 내용
 베이스 이미지: ubuntu:22.04
-커스텀 목적: 실습 목적에 ubuntu가 적합하다 판단하여 ubuntu 기반에서 nginx 인스톨
-환경변수 설정: 관리자 메일 환경변수로 설정
-커스텀 목적: 환경변수 실습
+커스텀 목적: 실습 목적에 ubuntu가 적합하다 판단하여 ubuntu 기반에서 nginx 인스톨  
+환경변수 설정: 관리자 메일 환경변수로 설정  
+커스텀 목적: 환경변수 실습  
 
 # 6.2. 웹서버 소스코드 및 Dockerfile 코드
 
@@ -530,12 +530,12 @@ exec: 실행 중인 컨테이너에 새로운 프로세스를 실행 (작업 후
 ```
 
 ### dockerfile
-ubuntu:22.04를 기반
-nginx이미지와 curl이미지를 사용
-환경변수는 ADMIN_EMAIL
-index.html을 nginx의 /var/www/html/index.html로 복사
-intex.html의 MY_EMAIL이 Dockerfile의 ADMIN_EMAIL로 치환되도록
-포트번호 80
+ubuntu:22.04를 기반  
+nginx이미지와 curl이미지를 사용  
+환경변수는 ADMIN_EMAIL  
+index.html을 nginx의 /var/www/html/index.html로 복사  
+intex.html의 MY_EMAIL이 Dockerfile의 ADMIN_EMAIL로 치환되도록  
+포트번호 80  
 
 ```
 FROM ubuntu:22.04
@@ -555,10 +555,10 @@ CMD ["nginx", "-g", "daemon off;"]
 
 
 # 6.3. 빌드 및 실행 결과
-빌드 및 실행 과정에서 ENV 치환 관련 에러 발생하였으나
-index.html파일이 UTF-16 LE로 인코딩 되어 sed 명령어가 index.html의 MY_EMAIL을
-제대로 인식하지 못한 이슈로 확인되어 index.html 파일을 UTF-8로 다시 인코딩 후
-빌드 및 실행하여 해결_트러블슈팅 case2
+빌드 및 실행 과정에서 ENV 치환 관련 에러 발생하였으나  
+index.html파일이 UTF-16 LE로 인코딩 되어 sed 명령어가 index.html의 MY_EMAIL을  
+제대로 인식하지 못한 이슈로 확인되어 index.html 파일을 UTF-8로 다시 인코딩 후  
+빌드 및 실행하여 해결_트러블슈팅 case2  
 
 ## 빌드 명령
 docker build -t my-web-server .
@@ -590,13 +590,13 @@ PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-t
  ```
 
 ## 실행 명령
-내 컴퓨터의 8080 포트를 컨테이너 네임스페이스의 80 포트와 연결
+내 컴퓨터의 8080 포트를 컨테이너 네임스페이스의 80 포트와 연결  
 docker run -d -p 8080:80 --name my-web-container my-web-server
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker run -d -p 8080:80 --name my-web-container my-web-server
 1ff570bf89f2a35e149c463e3d3e29b1ad671c8eb2c9f4e0e6df79ae4b7239dc
 ```
-접속 확인: localhost:8080 curl 결과 및 접속 스크린샷 첨부
+접속 확인: localhost:8080 curl 결과 및 접속 스크린샷 첨부  
 ```
 StatusCode        : 200
 StatusDescription : OK
@@ -620,33 +620,33 @@ RawContentLength  : 71
 ```
 <img width="645" height="229" alt="스크린샷 2026-11-07 134257" src="https://github.com/user-attachments/assets/0fef1af5-98dc-498f-93ee-a24fb030dbb6" />
 
-현재 문제 없지만 내 컴퓨터의 8080포트를 이미 사용중이었을 경우 포트 충돌 발생
-해당 에러 발생시 lsof/ps/netstat 등을 통해 해당 프로그램 확인 및 해제 가능
+현재 문제 없지만 내 컴퓨터의 8080포트를 이미 사용중이었을 경우 포트 충돌 발생  
+해당 에러 발생시 lsof/ps/netstat 등을 통해 해당 프로그램 확인 및 해제 가능  
 
-`lsof` - 가장 직관적인 확인법
-sudo lsof -i :8080
-8080포트를 쓰는 프로그램_PID 확인
+`lsof` - 가장 직관적인 확인법  
+sudo lsof -i :8080  
+8080포트를 쓰는 프로그램_PID 확인  
 
-`netstat` - 전문적인 확인법
-sudo netstat -nlp | grep :8080
+`netstat` - 전문적인 확인법  
+sudo netstat -nlp | grep :8080  
 
-`ps` - PID를 통해 해당 프로그램의 이름 확인
-ps -ef | grep <찾은 PID>
+`ps` - PID를 통해 해당 프로그램의 이름 확인  
+ps -ef | grep <찾은 PID>  
 
 `kill` - 프로그램 종료
 
 # 7. Docker 볼륨 영속성 검증
-## 바인트 마운트 vs 도커 볼륨
-바인드 마운트 : 호스트 시스템의 절대경로를 컨테이너 내부경로와 연결
-장점 : 직관적, 실시간 반영
-단점 : 호스트 의존성_다른 컴퓨터에서 안돌아갈 수 있음, 보안위험_컨테이너가 호스트 특정파일을 수정하거나 삭제 가능
-주 용도 : 개발용, 소스 코드 실시간 수정
+## 바인트 마운트 vs 도커 볼륨  
+바인드 마운트 : 호스트 시스템의 절대경로를 컨테이너 내부경로와 연결  
+장점 : 직관적, 실시간 반영  
+단점 : 호스트 의존성_다른 컴퓨터에서 안돌아갈 수 있음, 보안위험_컨테이너가 호스트 특정파일을 수정하거나 삭제 가능  
+주 용도 : 개발용, 소스 코드 실시간 수정  
 
 
-도커볼륨 : 도커과 관리하는 호스트 특정영역에 데이터 저장
-장점 : 도커명령어로 관리 용이, 독립성, 성능 및 안전
-단점 : 접근성_데이터가 도커 전용 영역에 숨겨져 있어, 일반 사용자가 직접 파일을 확인하기 번거로움
-주 용도 : 운영용, 데이터베이스, 영구저장
+도커볼륨 : 도커과 관리하는 호스트 특정영역에 데이터 저장  
+장점 : 도커명령어로 관리 용이, 독립성, 성능 및 안전  
+단점 : 접근성_데이터가 도커 전용 영역에 숨겨져 있어, 일반 사용자가 직접 파일을 확인하기 번거로움  
+주 용도 : 운영용, 데이터베이스, 영구저장  
 
 ## 볼륨 생성 
 볼륨명 : my-vol
@@ -656,8 +656,8 @@ my-vol
 ```
 
 ## 연결 및 데이터 생성:
-alpine이 테스트에 가벼운 이미지로 테스트에 적합하다 하여 alpine 이미지로 컨테이너 생성 및 테스트 진행
-volume-test-container를 my-vol과 연결되어 1000초 동안 켜지게 생성
+alpine이 테스트에 가벼운 이미지로 테스트에 적합하다 하여 alpine 이미지로 컨테이너 생성 및 테스트 진행  
+volume-test-container를 my-vol과 연결되어 1000초 동안 켜지게 생성  
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker run -d --name volume-test-container -v my-vol:/data alpine sleep 1000
 Unable to find image 'alpine:latest' locally
@@ -671,7 +671,7 @@ b12d253e7bb4b4e71e45463ecf9d86794c49d2ce7e7d2aeada08fb7dd43a9f6f
 ```
 
 ## 컨테이너 내부의 /data 경로에 파일 생성
-컨테이너 내부에 Hello, Docker Volume!이라는 내용의 hello.txt 생성
+컨테이너 내부에 Hello, Docker Volume!이라는 내용의 hello.txt 생성  
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker exec volume-test-container sh -c "echo 'Hello, Docker Volume!' > /data/hello.txt"
 ```
@@ -683,15 +683,15 @@ Hello, Docker Volume!
 ```
 
 ## 컨테이너 삭제
-volume-test-container 삭제
+volume-test-container 삭제  
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker rm -f volume-test-container
 volume-test-container
 ```
 
 ## 새 컨테이너 생성, 볼륨 재연결 및 데이터 확인
-my-vol과 연결된 컨테이너 생성 및 /data/hello.txt 내용을 외치고 삭제되는 컨테이너 생성하여
-삭제한 volume-test-container 안의 데이터가 유지된 것을 확인
+my-vol과 연결된 컨테이너 생성 및 /data/hello.txt 내용을 외치고 삭제되는 컨테이너 생성하여  
+삭제한 volume-test-container 안의 데이터가 유지된 것을 확인  
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-custom-test> docker run --rm -v my-vol:/data alpine cat /data/hello.txt
 Hello, Docker Volume!
@@ -700,7 +700,7 @@ Hello, Docker Volume!
 ## 결과: "Hello, Docker Volume!" 출력됨 (데이터 유지 확인)
 
 # 8. Git 및 GitHub 연동
-Git 설정 확인: `git config --list`
+Git 설정 확인: `git config --list`  
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository> git config --list
 diff.astextplain.textconv=astextplain
@@ -737,31 +737,31 @@ branch.main.merge=refs/heads/main
 
 # 9. 트러블슈팅 (Troubleshooting)
 
-Case 1: Docker Desktop 설치 시 가상화 오류
-문제: "Virtual Machine Platform" 기능 미활성화 에러 발생.
-원인: 윈도우 WSL2 기능이 꺼져 있어 Docker 엔진이 구동되지 않음.
-해결: 관리자 권한 파워쉘에서 wsl --install 실행 후 재부팅하여 해결.
+Case 1: Docker Desktop 설치 시 가상화 오류  
+문제: "Virtual Machine Platform" 기능 미활성화 에러 발생.  
+원인: 윈도우 WSL2 기능이 꺼져 있어 Docker 엔진이 구동되지 않음.  
+해결: 관리자 권한 파워쉘에서 wsl --install 실행 후 재부팅하여 해결.  
 
-Case 2: 도커파일 활용한 웹파일 환경변수 미작동 오류
-문제: ENV 및 sed 활용하여 관리자 이메일을 환경변수로 적용하려했으나 실 구동시 환경변수 작동하지 않음
-원인: 도커파일은 UTF-8, 인덱스파일은 UTF-16 LE로 되어있어 인덱스파일의 MY_EMAIL을 제대로 인식하지 못함
-해결: index.html 파일을 UTF-8로 다시 인코딩하여 저장하고 다시 빌드 및 실행
+Case 2: 도커파일 활용한 웹파일 환경변수 미작동 오류  
+문제: ENV 및 sed 활용하여 관리자 이메일을 환경변수로 적용하려했으나 실 구동시 환경변수 작동하지 않음  
+원인: 도커파일은 UTF-8, 인덱스파일은 UTF-16 LE로 되어있어 인덱스파일의 MY_EMAIL을 제대로 인식하지 못함  
+해결: index.html 파일을 UTF-8로 다시 인코딩하여 저장하고 다시 빌드 및 실행  
 
-# 10. 디렉토리 구조
-docker-custom-test : 커스텀 Dockerfile 제작 및 웹 서버 배포
-testfolder : 터미널 조작 및 권한실습_디렉토리, 파일 생성 및 권한변경 등 실습에 사용 
-docker-compose-test : 보너스과제의 도커 컴포즈 관련 실습
+# 10. 디렉토리 구조  
+docker-custom-test : 커스텀 Dockerfile 제작 및 웹 서버 배포  
+testfolder : 터미널 조작 및 권한실습_디렉토리, 파일 생성 및 권한변경 등 실습에 사용   
+docker-compose-test : 보너스과제의 도커 컴포즈 관련 실습  
 
-# 11. 보안 및 개인정보 보호
-본 문서에 포함된 모든 로그와 스크린샷에서 개인 이메일, 토큰, 비밀번호 등은 ***로 마스킹 처리되었음을 확인합니다.
+# 11. 보안 및 개인정보 보호  
+본 문서에 포함된 모든 로그와 스크린샷에서 개인 이메일, 토큰, 비밀번호 등은 ***로 마스킹 처리되었음을 확인합니다.  
 
 # 12. 보너스 과제
 
-# 12.1 Docker Compose 기초
-Docker Compose : Docker Compose는 여러 컨테이너 설정을 하나의 파일_docker-compose.yml에 기록하는 도구
-코드의 문서화를 통해 가독성, 재현성 확보 및 버전관리_git로그 통해 가능
+# 12.1 Docker Compose 기초  
+Docker Compose : Docker Compose는 여러 컨테이너 설정을 하나의 파일_docker-compose.yml에 기록하는 도구  
+코드의 문서화를 통해 가독성, 재현성 확보 및 버전관리_git로그 통해 가능  
 
-Codessey-Repository 디렉토리 안에 docker-compose-test 디렉토리 생성 및 docker-compose.yml 파일 생성 
+Codessey-Repository 디렉토리 안에 docker-compose-test 디렉토리 생성 및 docker-compose.yml 파일 생성   
 
 docker-compose.yml
 ```
@@ -772,9 +772,9 @@ services:
       - "7070:80"
 ```
 
-docker-compose.yml 파일 저장 후
-`docker-compose up -d` 입력 시 해당 컨테이너 실행
-실행 후 웹브라우저에 http://localhost:7070 입력 후 nginx 페이지 확인
+docker-compose.yml 파일 저장 후  
+`docker-compose up -d` 입력 시 해당 컨테이너 실행  
+실행 후 웹브라우저에 http://localhost:7070 입력 후 nginx 페이지 확인  
 <img width="821" height="301" alt="image" src="https://github.com/user-attachments/assets/0daf62f2-d52e-473f-a0ad-672b950c4cd0" />
 
 
@@ -790,14 +790,14 @@ services:
   my-backend:
     image: nginx
 ```
-수정 후 docker-compose up -d 재입력 후 2개 컨테이너 실행 상황 확인
+수정 후 docker-compose up -d 재입력 후 2개 컨테이너 실행 상황 확인  
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-compose-test> docker ps
 CONTAINER ID   IMAGE     COMMAND                   CREATED          STATUS          PORTS                                     NAMES
 257c4023683e   nginx     "/docker-entrypoint.…"   10 minutes ago   Up 10 minutes   80/tcp                                    docker-compose-test-my-backend-1
 5895fc7707f1   nginx     "/docker-entrypoint.…"   13 minutes ago   Up 13 minutes   0.0.0.0:7070->80/tcp, [::]:7070->80/tcp   docker-compose-test-my-web-1
 ```
-my-web 컨테이너 접속 후 backend로 핑 보내기
+my-web 컨테이너 접속 후 backend로 핑 보내기  
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-compose-test> docker-compose exec my-web bash
 root@c997bcc1e7f8:/# curl my-backend
@@ -830,14 +830,14 @@ security features and capabilities please refer to
 </html>
 ```
 
-외부에서는 my-backend에 직접 접속할 수 없지만 동일 컴포즈 네트워크 안의 my-web은 자유롭게 소통이 가능함을 확인
+외부에서는 my-backend에 직접 접속할 수 없지만 동일 컴포즈 네트워크 안의 my-web은 자유롭게 소통이 가능함을 확인  
 
-서비스 디스커버리 : 주소찾기_my-web에서 my-backend로 my-backend의 IP주소가 아닌 이름으로 접속한 것
+서비스 디스커버리 : 주소찾기_my-web에서 my-backend로 my-backend의 IP주소가 아닌 이름으로 접속한 것  
 
 # 12.3 compose 운영 명령어 습득
-`docker-compose up -d` 백그라운드 실행 및 생성
+`docker-compose up -d` 백그라운드 실행 및 생성  
 
-`docker-compose ps` 현재 상태 확인
+`docker-compose ps` 현재 상태 확인  
 ```
 PS C:\Users\fbwldn10042731\Desktop\workspace\Codessey-Repository\docker-compose-test> docker-compose ps
 NAME                               IMAGE     COMMAND                   SERVICE      CREATED             STATUS             PORTS
