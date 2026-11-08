@@ -727,7 +727,7 @@ remote.origin.url=https://github.com/Ryujiu/Codessey-Repository
 remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
 branch.main.remote=origin
 branch.main.merge=refs/heads/main
-
+```
 (user.name, user.email 확인 - 개인정보는 ***로 마스킹)
 연동 증거: [VSCode와 GitHub 연동 화면 또는 GitHub 저장소 메인 스크린샷]
 
