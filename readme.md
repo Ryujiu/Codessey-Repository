@@ -729,7 +729,9 @@ branch.main.remote=origin
 branch.main.merge=refs/heads/main
 ```
 (user.name, user.email 확인 - 개인정보는 ***로 마스킹)
-연동 증거: [VSCode와 GitHub 연동 화면 또는 GitHub 저장소 메인 스크린샷]
+연동 증거
+<img width="1890" height="1025" alt="image" src="https://github.com/user-attachments/assets/d0026594-ef2d-4537-8850-3d8bd486fa0d" />
+
 
 # 9. 트러블슈팅 (Troubleshooting)
 
