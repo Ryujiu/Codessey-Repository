@@ -15,14 +15,14 @@ Git 버전 집 PC [git version 2.47.1.windows.1]
 Git 버전 교육장 PC[git version 2.56.0.windows.4]  
 
 # 3. 수행 항목 체크리스트
-터미널 기본 명령어 실습_OK
-파일 및 디렉토리 권한 변경 실습_OK
-Docker 설치 및 기본 점검_OK
-Docker 이미지 및 컨테이너 운영 명령 수행_OK
-Dockerfile 기반 커스텀 이미지 제작 및 배포_OK
-포트 매핑 및 브라우저 접속 확인_OK
-Docker 볼륨을 이용한 데이터 영속성 검증_OK
-GitHub 저장소 연동 및 푸시_OK
+터미널 기본 명령어 실습_OK  
+파일 및 디렉토리 권한 변경 실습_OK  
+Docker 설치 및 기본 점검_OK  
+Docker 이미지 및 컨테이너 운영 명령 수행_OK  
+Dockerfile 기반 커스텀 이미지 제작 및 배포_OK  
+포트 매핑 및 브라우저 접속 확인_OK  
+Docker 볼륨을 이용한 데이터 영속성 검증_OK  
+GitHub 저장소 연동 및 푸시_OK  
 
 # 4. 터미널 조작 및 권한 실습 로그
 # 4.1. 기본 명령어 수행
