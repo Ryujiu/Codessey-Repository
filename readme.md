@@ -40,11 +40,11 @@ C:\Users\knuser\Desktop\Workspace
 
 ## 이동
 `cd`
-절대경로 : 집 주소와 같은 특정 위치를 뜻하는 절대적인 경로
-cd /users/fbwldn10042731/Desktop/workspace -> users안의 fbwldn10042731안의 Desktop안의 workspace
-상대경로 : 내 앞이나 뒤, 위처럼 내 위치에 따라 달라지는 상대적인 경로
-.이 나의 현재 위치
-cd .. -> 내 상위 폴더
+절대경로 : 집 주소와 같은 특정 위치를 뜻하는 절대적인 경로  
+cd /users/fbwldn10042731/Desktop/workspace -> users안의 fbwldn10042731안의 Desktop안의 workspace  
+상대경로 : 내 앞이나 뒤, 위처럼 내 위치에 따라 달라지는 상대적인 경로  
+.이 나의 현재 위치  
+cd .. -> 내 상위 폴더  
 
 ## 목록 확인 
 `ls`
@@ -116,13 +116,13 @@ Hello.txt
 ```
 
 4.2. 권한(Permission) 실습
-대상: note.txt (파일), test_dir (디렉토리)
+대상: note.txt (파일), test_dir (디렉토리)  
 변경 전/후 비교:
 ## 파일 권한 변경 (644 -> 755)
 `chmod`
-기존의 내가 읽고 쓸 수 있고 그룹이나 타인은 읽기만 할수 있던 파일을
-내가 읽고 쓰고 실행할 수 있으며 그룹이나 타인은 읽고 실행할 수 있는 파일로 변경
-r=4 w=2 x=1로 각각 읽기, 쓰기, 실행
+기존의 내가 읽고 쓸 수 있고 그룹이나 타인은 읽기만 할수 있던 파일을  
+내가 읽고 쓰고 실행할 수 있으며 그룹이나 타인은 읽고 실행할 수 있는 파일로 변경  
+r=4 w=2 x=1로 각각 읽기, 쓰기, 실행  
 ```
 root@6efc1a9039b7:/home/Workspace/testfolder# ls -l Hello.txt
 -rw-r--r-- 1 root root 7 Nov  5 07:02 Hello.txt
@@ -133,9 +133,9 @@ root@6efc1a9039b7:/home/Workspace/testfolder# ls -l Hello.txt
 
 ## 디렉토리 권한 변경 (755 -> 700)
 `chmod`
-기존에 내가 읽고 쓰고 접속할 수 있으며 그룹, 타인은 읽고 접속할 수 있던 디렉토리를
-나만이 읽고 쓰고 접속할 수 있는 디렉토리로 변경
-d=디렉토리 r=4 w=2 x=1로 각각 읽기, 쓰기, 접속
+기존에 내가 읽고 쓰고 접속할 수 있으며 그룹, 타인은 읽고 접속할 수 있던 디렉토리를  
+나만이 읽고 쓰고 접속할 수 있는 디렉토리로 변경  
+d=디렉토리 r=4 w=2 x=1로 각각 읽기, 쓰기, 접속  
 ```
 root@6efc1a9039b7:/home/Workspace/testfolder# mkdir permission test 
 root@6efc1a9039b7:/home/Workspace/testfolder# ls
@@ -150,31 +150,31 @@ drwx------ 1 root root 512 Nov  5 07:09 permission
 
 # 5. Docker 운영 및 컨테이너 실습
 # 5.1. Docker 기본 점검
-도커 이미지 : 컨테이너를 만드는 틀, 읽기전용
-도커 컨테이너 : 이미지를 바탕으로 만들어진 컨테이너, 접속하고 명령어를 입력하는 실제 프로세스
+도커 이미지 : 컨테이너를 만드는 틀, 읽기전용  
+도커 컨테이너 : 이미지를 바탕으로 만들어진 컨테이너, 접속하고 명령어를 입력하는 실제 프로세스  
 
 # 5.2. 도커 흐름도
-빌드 : Dockerfile -> dockerbuild -> 이미지
-개발자가 코드와 설정파일들을 어디서든 똑같이 실행될 수 있는 이미지로 만듬
+빌드 : Dockerfile -> dockerbuild -> 이미지  
+개발자가 코드와 설정파일들을 어디서든 똑같이 실행될 수 있는 이미지로 만듬  
 
-실행 : 이미지 -> docker run -> 컨테이너
-이미지를 바탕으로 컨테이너를 실행
+실행 : 이미지 -> docker run -> 컨테이너  
+이미지를 바탕으로 컨테이너를 실행  
 
-변경 : 컨테이너 안에서 작업
+변경 : 컨테이너 안에서 작업  
 
-저장 : 위에서 변경된 이미지를 새 이미지로 커밋 혹은 빌드
+저장 : 위에서 변경된 이미지를 새 이미지로 커밋 혹은 빌드  
 
 # 5.3. 도커 관련 명령어 실습
 
-`docker version`
-현재 도커 버전 확인
+`docker version`  
+현재 도커 버전 확인  
 ```
 PS C:\Users\knuser\Desktop\Workspace> docker --version
 Docker version 29.9.2, build a82e528
 ```
 
 `docker info`
-클라이언트. 도커 서버_엔진, 현재 상황, 내 컴퓨터 사양, 도커 저장소 등 도커 관련 정보 확인
+클라이언트. 도커 서버_엔진, 현재 상황, 내 컴퓨터 사양, 도커 저장소 등 도커 관련 정보 확인  
 ```
 PS C:\Users\knuser\Desktop\Workspace> docker info
 Client:
