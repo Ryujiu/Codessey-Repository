@@ -2,15 +2,17 @@
 
 
 # 1. 프로젝트 개요
-미션 목표: Docker를 활용한 개발 환경 구축, 리눅스 명령어 숙달, Dockerfile을 이용한 커스텀 웹 서버 배포 및 데이터 영속성 검증.
-핵심 수행 내용: CLI 기초, 권한 관리, Docker 운영, Dockerfile 빌드, 볼륨 마운트, Git/GitHub 연동.
+미션 목표: Docker를 활용한 개발 환경 구축, 리눅스 명령어 숙달, Dockerfile을 이용한 커스텀 웹 서버 배포 및 데이터 영속성 검증.  
+핵심 수행 내용: CLI 기초, 권한 관리, Docker 운영, Dockerfile 빌드, 볼륨 마운트, Git/GitHub 연동.  
 
 # 2. 실행 환경
-항목	내용
-OS	Windows 11 (WSL2)
-Shell/Terminal 	PowerShell / Ubuntu Bash
-Docker 버전	[Docker version29.9.2, build a82e528]
-Git 버전 회사 PC	[git version 2.56.0.windows.4] / 집 PC [git version 2.47.1.windows.1]
+항목  
+OS : Windows 11 (WSL2)  
+Shell/Terminal 	PowerShell / Ubuntu Bash  
+Docker 버전	[Docker version29.9.2, build a82e528]  
+Git 버전 회사 PC	[git version 2.56.0.windows.4]  
+Git 버전 집 PC [git version 2.47.1.windows.1]
+Git 버전 교육장 PC[git version 2.56.0.windows.4]  
 
 # 3. 수행 항목 체크리스트
 터미널 기본 명령어 실습_OK
