@@ -1,0 +1,8 @@
+services:
+  my-web:
+    image: nginx
+    ports:
+      - "7070:80"
+
+  my-backend:
+    image: nginx
