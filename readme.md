@@ -14,7 +14,7 @@ Git 버전 회사 PC	[git version 2.56.0.windows.4]
 Git 버전 집 PC [git version 2.47.1.windows.1]
 Git 버전 교육장 PC[git version 2.56.0.windows.4]  
 
-# 3. 과제 수행 항목 체크리스트
+# 3. 과제 수행 체크리스트
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/ccd94ee8-713d-41aa-9153-f692ef0344f0" />
 
 # 4. 터미널 조작 및 권한 실습 로그
