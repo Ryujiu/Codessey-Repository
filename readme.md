@@ -108,9 +108,9 @@ root@6efc1a9039b7:/home/Workspace/testfolder# ls
 Hello.txt
 ```
 
-4.2. 권한(Permission) 실습
+# 4.2. 권한(Permission) 실습
 대상: note.txt (파일), test_dir (디렉토리)  
-변경 전/후 비교:
+
 ## 파일 권한 변경 (644 -> 755)
 `chmod`
 기존의 내가 읽고 쓸 수 있고 그룹이나 타인은 읽기만 할수 있던 파일을  
