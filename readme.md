@@ -143,19 +143,11 @@ drwx------ 1 root root 512 Nov  5 07:09 permission
 
 # 5. Docker 운영 및 컨테이너 실습
 # 5.1. Docker 기본 점검
-도커 이미지 : 컨테이너를 만드는 틀, 읽기전용  
-도커 컨테이너 : 이미지를 바탕으로 만들어진 컨테이너, 접속하고 명령어를 입력하는 실제 프로세스  
+<img width="1774" height="887" alt="image" src="https://github.com/user-attachments/assets/d525719f-930d-4bbf-8e72-62c7849a8c06" />
 
 # 5.2. 도커 흐름도
-빌드 : Dockerfile -> dockerbuild -> 이미지  
-개발자가 코드와 설정파일들을 어디서든 똑같이 실행될 수 있는 이미지로 만듬  
+<img width="1774" height="887" alt="image" src="https://github.com/user-attachments/assets/c957c853-a14e-4bd7-9126-3b00bf628771" />
 
-실행 : 이미지 -> docker run -> 컨테이너  
-이미지를 바탕으로 컨테이너를 실행  
-
-변경 : 컨테이너 안에서 작업  
-
-저장 : 위에서 변경된 이미지를 새 이미지로 커밋 혹은 빌드  
 
 # 5.3. 도커 관련 명령어 실습
 
@@ -435,7 +427,7 @@ For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 ```
 
-ubuntu 컨테이너 내에서 ls, echo 등 간단 명령 수행
+## 컨테이너 내부에서 ls, echo "hello" 수행
 `docker run -it --name my-ubuntu ubuntu:latest /bin/bash`
 ```
 PS C:\Users\knuser\Desktop\Workspace> docker run -it --name ubuntu-container ubuntu:latest /bin/bash
@@ -468,9 +460,8 @@ bin  boot  dev  etc  hello.txt  home  lib  lib64  media  mnt  opt  proc  root  r
 root@5d197c6486c5:/# cat hello.txt
 hello
 ```
-
-## 내부에서 ls, echo "hello" 수행
-attach vs exec 차이점: ctrl + p
+## attach vs exec 차이점
+<img width="1774" height="887" alt="image" src="https://github.com/user-attachments/assets/2c2875a7-af40-4e70-a56d-b6f031282386" />
 
 `docker run -it -d --name test ubuntu:22.04`
 로 exit하여도 컨테이너 멈추지 않도록 컨테이너 생성
@@ -502,9 +493,6 @@ exit
 PS C:\Users\USER\OneDrive\Desktop\workspace\Codessey-Repository> docker ps
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
-
-attach: 실행 중인 컨테이너의 표준 입력/출력에 직접 연결 (종료 시 컨테이너도 멈출 수 있음).  
-exec: 실행 중인 컨테이너에 새로운 프로세스를 실행 (작업 후 나와도 컨테이너는 계속 실행됨).  
 
 # 6. 커스텀 Dockerfile 제작 및 웹 서버 배포
 # 6.1. 커스텀 설정 내용
@@ -630,16 +618,7 @@ ps -ef | grep <찾은 PID>
 
 # 7. Docker 볼륨 영속성 검증
 ## 바인트 마운트 vs 도커 볼륨  
-바인드 마운트 : 호스트 시스템의 절대경로를 컨테이너 내부경로와 연결  
-장점 : 직관적, 실시간 반영  
-단점 : 호스트 의존성_다른 컴퓨터에서 안돌아갈 수 있음, 보안위험_컨테이너가 호스트 특정파일을 수정하거나 삭제 가능  
-주 용도 : 개발용, 소스 코드 실시간 수정  
-
-
-도커볼륨 : 도커과 관리하는 호스트 특정영역에 데이터 저장  
-장점 : 도커명령어로 관리 용이, 독립성, 성능 및 안전  
-단점 : 접근성_데이터가 도커 전용 영역에 숨겨져 있어, 일반 사용자가 직접 파일을 확인하기 번거로움  
-주 용도 : 운영용, 데이터베이스, 영구저장  
+<img width="1671" height="941" alt="image" src="https://github.com/user-attachments/assets/c5fd8603-9ac6-426c-9144-d4724cc8b6e9" />
 
 ## 볼륨 생성 
 볼륨명 : my-vol
