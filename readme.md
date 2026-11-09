@@ -11,7 +11,7 @@ OS : Windows 11 (WSL2)
 Shell/Terminal 	PowerShell / Ubuntu Bash  
 Docker 버전	[Docker version29.9.2, build a82e528]  
 Git 버전 회사 PC	[git version 2.56.0.windows.4]  
-Git 버전 집 PC [git version 2.47.1.windows.1]
+Git 버전 집 PC [git version 2.47.1.windows.1]  
 Git 버전 교육장 PC[git version 2.56.0.windows.4]  
 
 # 3. 과제 수행 체크리스트
@@ -35,7 +35,7 @@ C:\Users\knuser\Desktop\Workspace
 `cd`
 절대경로 : 집 주소와 같은 특정 위치를 뜻하는 절대적인 경로  
 cd /users/fbwldn10042731/Desktop/workspace -> users안의 fbwldn10042731안의 Desktop안의 workspace  
-상대경로 : 내 앞이나 뒤, 위처럼 내 위치에 따라 달라지는 상대적인 경로  
+상대경로 : 내 앞이나 뒤, 위처럼 내 위치에 따라 달라지는 상대적인 경로 / 내 현재 디렉토리를 기준점으로  
 .이 나의 현재 위치  
 cd .. -> 내 상위 폴더  
 
